@@ -35,9 +35,9 @@ metadata:
 spec:
   ports:
   - nodePort: 30085
-    port: 8080
+    port: 8080 #Is it right?
     protocol: TCP
-    targetPort: 8088
+    targetPort: 8088 #Is it right?
   selector:
     run: webapp-color
   type: NodePort
