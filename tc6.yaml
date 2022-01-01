@@ -34,7 +34,7 @@ metadata:
   namespace: tc6
 spec:
   ports:
-  - nodePort: 30491
+  - nodePort: 30085
     port: 8080
     protocol: TCP
     targetPort: 8088
