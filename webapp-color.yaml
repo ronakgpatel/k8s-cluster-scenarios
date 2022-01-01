@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: webapp-color
+  name: webapp-color
+spec:
+  containers:
+  - image: mmumshad/simple-webapp-color
+    name: webapp-color
