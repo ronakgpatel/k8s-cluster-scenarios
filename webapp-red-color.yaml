@@ -8,3 +8,8 @@ spec:
   containers:
   - image: mmumshad/simple-webapp-color
     name: webapp-color
+    ports:
+     - containerPort: 8080
+    env:
+     - name: APP_COLOR
+       value: red
