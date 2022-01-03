@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: tc10
+  name: tc10
+spec:
+  finalizers:
+  - kubernetes
+---  
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: alpine
+  name: alpine-pod
+  namespace: tc10
+spec:
+  containers:
+  - image: alpine
+    name: alpine-pod
