@@ -2,31 +2,41 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    kubernetes.io/metadata.name: tc9
-  name: tc9
+    kubernetes.io/metadata.name: tc9-front
+  name: tc9-front
 spec:
   finalizers:
   - kubernetes
----  
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: tc9-back
+  name: tc9-back
+spec:
+  finalizers:
+  - kubernetes
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: vote-app-network-policy
-  namespace: tc9
+  namespace: tc9-back
 spec:
   podSelector:
     matchLabels:
-      name: azure-vote-back
+      app: azure-vote-back
   policyTypes:
   - Ingress
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
-          kubernetes.io/metadata.name: tc9
+          kubernetes.io/metadata.name: tc9-front
     - podSelector:
         matchLabels:
-          name: azure-vote-front
+          app: azure-vote-front
     ports:
     - protocol: TCP
       port: 80
@@ -35,7 +45,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-vote-back
-  namespace: tc9
+  namespace: tc9-back
 spec:
   replicas: 1
   selector:
@@ -45,7 +55,7 @@ spec:
     metadata:
       labels:
         app: azure-vote-back
-        namespace: tc9
+        namespace: tc9-back
     spec:
       containers:
       - name: azure-vote-back
@@ -61,7 +71,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: azure-vote-back
-  namespace: tc9
+  namespace: tc9-back
 spec:
   ports:
   - port: 6379
@@ -72,7 +82,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: azure-vote-front
-  namespace: tc9
+  namespace: tc9-front
 spec:
   replicas: 1
   selector:
@@ -87,7 +97,7 @@ spec:
     metadata:
       labels:
         app: azure-vote-front
-        namespace: tc9
+        namespace: tc9-front
     spec:
       containers:
       - name: azure-vote-front
@@ -96,13 +106,13 @@ spec:
         - containerPort: 80
         env:
         - name: REDIS
-          value: "azure-vote-back"
+          value: "azure-vote-back.tc9-back.svc.cluster.local"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: azure-vote-front
-  namespace: tc9
+  namespace: tc9-front
 spec:
   type: NodePort
   ports:
