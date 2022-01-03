@@ -19,3 +19,5 @@ spec:
   containers:
   - image: alpine
     name: alpine-pod
+  imagePullSecrets:
+  - name: regcred
