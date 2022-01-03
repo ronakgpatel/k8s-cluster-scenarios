@@ -19,4 +19,4 @@ spec:
   containers:
   - image: alpine
     name: alpine-pod
-    imagePullPolicy: always
+    imagePullPolicy: Always
