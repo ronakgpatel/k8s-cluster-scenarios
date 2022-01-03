@@ -41,4 +41,3 @@ spec:
   selector:
     run: my-webapp-color
   type: NodePort
-
