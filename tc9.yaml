@@ -68,6 +68,8 @@ spec:
         app: azure-vote-back
         namespace: tc9-back
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: azure-vote-back
         image: ronakgpatel/azure-voting-redis-db:6.0.8
@@ -110,6 +112,8 @@ spec:
         app: azure-vote-front
         namespace: tc9-front
     spec:
+      imagePullSecrets:
+      - name: regcred    
       containers:
       - name: azure-vote-front
         image: ronakgpatel/azure-voting-front:v1

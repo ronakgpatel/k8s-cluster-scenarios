@@ -16,6 +16,8 @@ metadata:
   name: webapp-color
   namespace: tc6
 spec:
+  imagePullSecrets:
+  - name: regcred
   containers:
   - image: mmumshad/simple-webapp-color
     name: webapp-color

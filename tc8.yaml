@@ -16,6 +16,8 @@ metadata:
   name: nginx-pod
   namespace: tc8
 spec:
+  imagePullSecrets:
+  - name: regcred
   containers:
   - image: nginx:latest
     name: nginx
